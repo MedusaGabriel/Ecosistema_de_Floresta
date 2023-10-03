@@ -23,7 +23,7 @@ public class Floresta {
             public void run() {
                 atualizarFloresta();
             }
-        }, 0, 10 * 1000); // Atualize a cada 10 segundos (tempo em milissegundos)
+        }, 0, 5 * 1000); // Atualize a cada 5 segundos (tempo em milissegundos)
     }
 
     public void atualizarFloresta() {
