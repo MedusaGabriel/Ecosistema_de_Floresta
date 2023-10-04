@@ -1,5 +1,8 @@
 # FlorestaConsole
 Projeto - Programação Orientada a Objetos. 
+Uninassau - Maceio - AL
+
+Aluno: Gabriel de Oliveira Barros
 
 Formato do projeto 
 
