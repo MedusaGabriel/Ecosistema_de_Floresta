@@ -16,35 +16,29 @@ public class Floresta {
         Arbusto arbusto = new Arbusto();
         arvores.add(arvore);
         arbustos.add(arbusto);
-        // Agende a atualização a cada 10 segundos
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 atualizarFloresta();
             }
-        }, 0, 5 * 1000); // Atualize a cada 5 segundos (tempo em milissegundos)
+        }, 0, 1 * 1000); // Atualize a cada 1 segundo (tempo em milissegundos)
     }
 
     public void atualizarFloresta() {
-        System.out.println("----- Situação da Floresta -----");
+        System.out.println("----------- Floresta ----------");
         for (Arvore arvore : arvores) {
-            arvore.envelhecer();
-            System.out.println("Árvore: Estágio = " + arvore.getEstagio());
+            arvore.envelhecer(); // Chame o método envelhecer para a árvore
+            System.out.println("Árvores: Estágio = " + arvore.getEstagio());
         }
         for (Arbusto arbusto : arbustos) {
+            arbusto.envelhecer();
             System.out.println("Arbusto: Frutinhas disponíveis = " + arbusto.getFrutinhasDisponiveis());
-           // int novasFrutinhas = arbusto.comerFrutinhas(1); // Consuma frutinhas após exibir
-            // Se novas frutinhas forem consumidas, exibir a mensagem
-            //if (novasFrutinhas > 0) {
-               // System.out.println(novasFrutinhas + " frutinhas foram consumidas.");
-           // }
         }
         System.out.println("---------------------------------");
     }
 
-
     public static void main(String[] args) {
-        Floresta floresta = new Floresta();
+        new Floresta();
     }
 }

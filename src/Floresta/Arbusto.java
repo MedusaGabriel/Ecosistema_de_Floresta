@@ -5,20 +5,19 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Arbusto {
-    private int idade;
-    private String frutinhas;
     private int tempoCrescer;
     private int frutinhasDisponiveis;
     private Timer timer;
     private int maxFrutinhas = 10; // Limite máximo de frutinhas
 
     public Arbusto() {
-        idade = 0;
-        frutinhas = "alimento";
         frutinhasDisponiveis = 0;
-        tempoCrescer = 30; // Tempo em segundos para crescer novas frutinhas
+        tempoCrescer = 10; // Tempo em segundos para crescer novas frutinhas
         timer = new Timer();
         scheduleFrutinhas();
+    }
+
+    public void envelhecer() {
     }
 
     // Método para consumir frutinhas
@@ -51,7 +50,6 @@ public class Arbusto {
                     } else {
                         frutinhasDisponiveis = maxFrutinhas;
                     }
-                    System.out.println(novasFrutinhas + " frutinhas nasceram!");
                 }
             }
         }, 0, tempoCrescer * 1000);

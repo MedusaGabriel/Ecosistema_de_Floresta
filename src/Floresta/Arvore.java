@@ -3,50 +3,66 @@ package Floresta;
 import java.util.Random;
 
 public class Arvore {
-    private int idade;
     private String estagio;
-    private int tempoFlorescimento; // Tempo em minutos de florescimento
-    private int tempoDecorrido; // Tempo decorrido durante o florescimento
-    private boolean floresceu; // Indica se a árvore floresceu
+    private int tempoCrescimentoMuda; // Tempo em ciclos para crescer a partir de "muda" para "jovem"
+    private int tempoCrescimentoJovem; // Tempo em ciclos para crescer a partir de "jovem" para "adulta"
+    private int tempoCrescimentoAdulta; // Tempo em ciclos para dar vida a novas mudas
+    private int tempoVidaAdulta; // Tempo em ciclos para permanecer no estágio "adulta"
+    private double chanceNascimento; // Chance de dar vida a novas mudas
+    private int ciclosDecorridos;
+    private int mudasNascidas;
 
+    /**
+     * 
+     */
     public Arvore() {
-        idade = 0;
         estagio = "muda";
-        tempoFlorescimento = 10;
-        tempoDecorrido = 0;
-        floresceu = false;
+        tempoCrescimentoMuda = 15;
+        tempoCrescimentoJovem = 15;
+        tempoCrescimentoAdulta = 30;
+        tempoVidaAdulta = 30;
+        chanceNascimento = 0.8; // 80% de chance de dar vida a novas mudas
+        ciclosDecorridos = 0;
+        mudasNascidas = 0;
+    }
+
+    public void executarCiclos(int numeroDeCiclos) {
+        for (int i = 0; i < numeroDeCiclos; i++) {
+            envelhecer();
+        }
     }
 
     public void envelhecer() {
-        if (estagio.equals("adulta") && !floresceu) {
-            // A árvore adulta entrou no estágio de florescimento
-            tempoDecorrido++;
-            if (tempoDecorrido >= tempoFlorescimento) {
-                floresceu = true;
-                tempoDecorrido = 0;
-            } else {
-                // 10% de chance de fazer nascer uma nova árvore a cada minuto de florescimento
+        ciclosDecorridos++;
+
+        if (estagio.equals("muda") && ciclosDecorridos >= tempoCrescimentoMuda) {
+            estagio = "jovem";
+            ciclosDecorridos = 0;
+        } else if (estagio.equals("jovem") && ciclosDecorridos >= tempoCrescimentoJovem) {
+            estagio = "adulta";
+            ciclosDecorridos = 0;
+        } else if (estagio.equals("adulta")) {
+            if (ciclosDecorridos == tempoCrescimentoAdulta) {
                 Random rand = new Random();
-                if (rand.nextDouble() <= 0.1) {
-                    // Nasceu uma nova árvore infantil
-                    System.out.println("Uma nova mudar árvore nasceu!");
+                if (rand.nextDouble() <= chanceNascimento) {
+                    System.out.println("Novas mudas estão nascendo!");
+                    mudasNascidas++;
                 }
             }
-        }
-
-        idade += 1; // A cada 1 minuto
-        if (idade >= 10) {
-            estagio = "adulta";
-        } else if (idade >= 5) {
-            estagio = "jovem";
+            if (ciclosDecorridos >= tempoVidaAdulta) {
+                estagio = "senil";
+                tempoVidaAdulta = 0; // Resete o tempo na vida adulta para evitar novas mudas
+                ciclosDecorridos = 0;
+            }
+        } else if (estagio.equals("senil")) {
+            if (mudasNascidas == 0) {
+                // Não há mais mudas nascendo, a árvore atingiu o final de sua vida
+                System.out.println("A árvore chegou ao fim de sua vida.");
+            }
         }
     }
 
     public String getEstagio() {
-        if (floresceu) {
-            return "Florescimento";
-        } else {
-            return estagio;
-        }
+        return estagio;
     }
 }
