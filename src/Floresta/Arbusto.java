@@ -12,12 +12,9 @@ public class Arbusto {
 
     public Arbusto() {
         frutinhasDisponiveis = 0;
-        tempoCrescer = 10; // Tempo em segundos para crescer novas frutinhas
+        tempoCrescer = 30; // Tempo em segundos para crescer novas frutinhas
         timer = new Timer();
         scheduleFrutinhas();
-    }
-
-    public void envelhecer() {
     }
 
     // Método para consumir frutinhas
@@ -50,8 +47,10 @@ public class Arbusto {
                     } else {
                         frutinhasDisponiveis = maxFrutinhas;
                     }
+                    System.out.println(novasFrutinhas + " frutinhas nasceram!");
                 }
             }
         }, 0, tempoCrescer * 1000);
     }
+
 }
