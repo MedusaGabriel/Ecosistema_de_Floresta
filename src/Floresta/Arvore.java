@@ -1,3 +1,4 @@
+
 package Floresta;
 
 import java.util.Random;
@@ -11,19 +12,21 @@ public class Arvore {
     private double chanceNascimento; // Chance de dar vida a novas mudas
     private int ciclosDecorridos;
     private int mudasNascidas;
+    private boolean senil; // Variável para rastrear o estágio "Senil"
 
     /**
      * 
      */
     public Arvore() {
         estagio = "muda";
-        tempoCrescimentoMuda = 15;
-        tempoCrescimentoJovem = 15;
-        tempoCrescimentoAdulta = 30;
-        tempoVidaAdulta = 30;
+        tempoCrescimentoMuda = 1;
+        tempoCrescimentoJovem = 2;
+        tempoCrescimentoAdulta = 5;
+        tempoVidaAdulta = 6;
         chanceNascimento = 0.8; // 80% de chance de dar vida a novas mudas
         ciclosDecorridos = 0;
         mudasNascidas = 0;
+        senil = false; // Inicialmente, as árvores não estão no estágio "Senil"
     }
 
     public void executarCiclos(int numeroDeCiclos) {
@@ -51,18 +54,24 @@ public class Arvore {
             }
             if (ciclosDecorridos >= tempoVidaAdulta) {
                 estagio = "senil";
-                tempoVidaAdulta = 0; // Resete o tempo na vida adulta para evitar novas mudas
+                senil = true; 
+                tempoVidaAdulta = 0; 
                 ciclosDecorridos = 0;
             }
         } else if (estagio.equals("senil")) {
-            if (mudasNascidas == 0) {
-                // Não há mais mudas nascendo, a árvore atingiu o final de sua vida
-                System.out.println("A árvore chegou ao fim de sua vida.");
+            if (mudasNascidas == 0) { // Se não houver novas mudas, a árvore morre
+                estagio = "morta";
+            } else {
+                mudasNascidas--;
             }
         }
     }
 
     public String getEstagio() {
         return estagio;
+    }
+
+    public boolean estaSenil() {
+        return senil;
     }
 }

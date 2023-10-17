@@ -4,19 +4,12 @@ public class Coelho extends Animal {
     private int energia;
 
     public Coelho() {
-        super(50);
-        energia = 20;
+        super(10);
+        energia = 100;
     }
 
     public void viver() {
         super.viver();
-    }
-
-    public void comerFrutinhas(Arbusto arbusto) {
-        if (arbusto.getFrutinhasDisponiveis() > 0) {
-            int frutinhasConsumidas = arbusto.comerFrutinhas(1);
-            energia += frutinhasConsumidas;
-        }
     }
 
     public String getStatus() {
@@ -26,7 +19,7 @@ public class Coelho extends Animal {
         return status;
     }
 
-    public int comer() {
+        public int comer() {
         if (estaVivo()) {
             int comida = energia;
             energia = 0;

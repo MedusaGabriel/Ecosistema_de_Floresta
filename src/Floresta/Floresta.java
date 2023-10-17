@@ -7,43 +7,50 @@
 
     public class Floresta {
         private HashSet<Arvore> arvores;
-        private HashSet<Arbusto> arbustos;
         private HashSet<Coelho> coelhos;
         private HashSet<Lobo> lobos;
+        private HashSet<Pantera> panteras;
+        private HashSet<Cervo> cervos;
+        private int Tempo;
 
         public Floresta() {
-            System.out.println("Bem-vindo ao Simulador da Floresta!");
-            System.out.println("Neste simulador, você poderá acompanhar a vida na floresta, incluindo árvores, arbustos, coelhos e lobos.");
-            System.out.println("A cada segundo, a floresta se atualiza, mostrando o desenvolvimento das árvores, a disponibilidade de frutinhas nos arbustos,");
-            System.out.println("o estado dos coelhos e lobos, e como eles interagem com o ambiente.");
-            System.out.println("Os coelhos buscam comida nos arbustos e tentam fugir dos lobos se não morrem.");
-            System.out.println("Os lobos tentam caçar os coelhos, mas também precisam se alimentar para sobreviver.");
+            System.out.println("| ---------------- Bem-vindo ao Simulador da Floresta!---------------- |");
+            System.out.println("| Neste simulador, você poderá acompanhar a vida na floresta           |");
+            System.out.println("| e ver como os animais lobos,coelhos,cervos e panteras interagem.     |");
+            System.out.println("| Vida na floresta muda a cada 3 segundos.                             |"); 
+            System.out.println("| Você poderá escolher quais animais deseja incluir na floresta.       |");           
+            System.out.println("|----------------------------------------------------------------------|");
+
 
             arvores = new HashSet<>();
-            arbustos = new HashSet<>();
             coelhos = new HashSet<>();
             lobos = new HashSet<>();
+            panteras = new HashSet<>();
+            cervos = new HashSet<>();
+            Tempo = 0;
 
             Scanner scanner = new Scanner(System.in);
             
-            if (obterResposta(scanner, "Deseja incluir árvores (Y/N)?")) {
+            if (obterResposta(scanner, "| Deseja incluir Arvore (Y/N)?                                         |")) {
                 Arvore arvore = new Arvore();
                 arvores.add(arvore);
             }
-
-            if (obterResposta(scanner, "Deseja incluir arbustos (Y/N)?")) {
-                Arbusto arbusto = new Arbusto();
-                arbustos.add(arbusto);
-            }
-
-            if (obterResposta(scanner, "Deseja incluir coelhos (Y/N)?")) {
+            if (obterResposta(scanner, "| Deseja incluir Coelho (Y/N)?                                         |")) {
                 Coelho coelho = new Coelho();
                 coelhos.add(coelho);
             }
 
-            if (obterResposta(scanner, "Deseja incluir lobos (Y/N)?")) {
+            if (obterResposta(scanner, "| Deseja incluir Lobo (Y/N)?                                           |")) {
                 Lobo lobo = new Lobo();
                 lobos.add(lobo);
+            }
+            if(obterResposta(scanner, "| Deseja incluir Pantera (Y/N)?                                        |")){
+                Pantera pantera = new Pantera();
+                panteras.add(pantera);
+            }
+            if(obterResposta(scanner, "| Deseja incluir Cervo (Y/N)?                                          |")){
+                Cervo cervo = new Cervo();
+                cervos.add(cervo);
             }
 
             Timer timer = new Timer();
@@ -55,20 +62,22 @@
             }, 0, 3 * 1000); // Atualize a cada 3 segundos (tempo em milissegundos)
         }
 
+        
         public void atualizarFloresta() {
+            Tempo += 3;
             System.out.println("|--------------------- Floresta ------------------------|");
+            System.out.println("| Tempo: " + Tempo + " segundos                         |");
+        
             for (Arvore arvore : arvores) {
                 arvore.envelhecer();
                 System.out.println("Árvores: Estágio = " + arvore.getEstagio());
             }
-            for (Arbusto arbusto : arbustos) {
-                System.out.println("Arbusto: Frutinhas disponíveis = " + arbusto.getFrutinhasDisponiveis());
-            }
+        
             for (Coelho coelho : coelhos) {
                 coelho.viver();
                 if (coelho.estaVivo()) {
                     System.out.println("Coelho: " + coelho.getStatus());
-                    
+        
                     for (Lobo lobo : lobos) {
                         if (lobo.estaVivo()) {
                             coelho.fugir(lobo);
@@ -83,11 +92,12 @@
                     System.out.println("Coelho: Morto");
                 }
             }
+        
             for (Lobo lobo : lobos) {
                 if (lobo.estaVivo()) {
                     lobo.viver();
                     System.out.println("Lobo: " + lobo.getStatus());
-                    
+        
                     for (Coelho coelho : coelhos) {
                         if (coelho.estaVivo()) {
                             lobo.cacarCoelho(coelho);
@@ -102,10 +112,53 @@
                     System.out.println("Lobo: Morto");
                 }
             }
+        
+            for (Pantera pantera : panteras) {
+                if (pantera.estaVivo()) {
+                    pantera.viver();
+                    System.out.println("Pantera: " + pantera.getStatus());
+                    for (Cervo cervo : cervos) {
+                        if (cervo.estaVivo()) {
+                            pantera.comerCervo(cervo);
+                            if (!cervo.estaVivo()) {
+                                System.out.println("Pantera conseguiu caçar o Cervo e se alimentou.");
+                            } else {
+                                System.out.println("Pantera não conseguiu comer o Cervo.");
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Pantera: Morto");
+                }
+            }
+        
+            for (Cervo cervo : cervos) {
+                cervo.viver();
+                if (cervo.estaVivo()) {
+                    System.out.println("Cervo: " + cervo.getStatus());
+                    for (Pantera pantera : panteras) {
+                        if (pantera.estaVivo()) {
+                            cervo.fugir(pantera);
+                            if (!cervo.estaVivo()) {
+                                System.out.println("Cervo fugiu da Pantera, mas não conseguiu escapar e morreu.");
+                            } else {
+                                System.out.println("Cervo conseguiu fugir da Pantera.");
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Cervo: Morto");
+                }
+            } 
+        
+            if (Animal.getAnimaisVivos() == 0) {
+                System.out.println("Todos os animais morreram. A simulação terminou.");
+                System.exit(0);
+            }
+        
             System.out.println("|-------------------------------------------------------|");
         }
-        
-        
+
         private boolean obterResposta(Scanner scanner, String pergunta) {
             System.out.println(pergunta);
             String resposta = scanner.nextLine().trim().toLowerCase();
