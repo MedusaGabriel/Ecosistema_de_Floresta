@@ -6,31 +6,30 @@ import java.util.Random;
 
 public class Lobo extends Animal {
     private int fome;
-    private Timer fomeTimer;
-    private Timer cacarTimer;
     private boolean cacando;
     private Random random;
 
     public Lobo() {
         super(10);
-        fome = 70;
+        fome = 30;
         cacando = false;
         random = new Random();
-        fomeTimer = new Timer();
+        
+        Timer fomeTimer = new Timer();
         fomeTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 perderFome();
             }
-        }, 1000, 1000); // Perder 1 de fome a cada segundo (tempo em milissegundos)
+        }, 1000, 1000); 
 
-        cacarTimer = new Timer();
+        Timer cacarTimer = new Timer();
         cacarTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 tentarCacar();
             }
-        }, 0, 2 * 1000); // Tentar caçar a cada 2 segundos (tempo em milissegundos)
+        }, 0, 2 * 1000); 
     }
 
     public void viver() {
@@ -42,8 +41,7 @@ public class Lobo extends Animal {
 
     public void comerCoelho(Coelho coelho) {
         if (coelho.estaVivo()) {
-            int coelhoComido = coelho.comer();
-            fome += coelhoComido;
+            fome += coelho.comer();
         }
     }
 
@@ -57,14 +55,11 @@ public class Lobo extends Animal {
     }
 
     public String getStatus() {
-        String status = "Estado: ";
-        status += (estaVivo()) ? "Vivo" : "Morto";
-        status += "\nFome do Lobo: " + fome;
-        return status;
+        return "Estado: " + (estaVivo() ? "Vivo" : "Morto") + "\nEnergia do Lobo: " + fome;
     }
 
     public void tentarCacar() {
-        if (random.nextDouble() < 0.3) { // 30% de chance de tentar caçar
+        if (random.nextDouble() < 0.3) {
             cacando = true;
         }
     }

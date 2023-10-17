@@ -5,21 +5,19 @@ public class Coelho extends Animal {
 
     public Coelho() {
         super(10);
-        energia = 100;
+        energia = 20;
     }
 
+    @Override
     public void viver() {
         super.viver();
     }
 
     public String getStatus() {
-        String status = "Estado: ";
-        status += (estaVivo()) ? "Vivo" : "Morto";
-        status += "\nEnergia do Coelho: " + energia;
-        return status;
+        return "Estado: " + (estaVivo() ? "Vivo" : "Morto") + "\nEnergia do Coelho: " + energia;
     }
 
-        public int comer() {
+    public int comer() {
         if (estaVivo()) {
             int comida = energia;
             energia = 0;
@@ -29,15 +27,17 @@ public class Coelho extends Animal {
     }
 
     public void serCacado() {
-        // Reduz a energia quando o coelho é caçado pelo lobo
         if (estaVivo()) {
-            energia -= 10; // Ajuste o valor conforme necessário
+            energia -= 10;
+            if (energia <= 0) {
+                morrer();
+            }
         }
     }
 
     public void fugir(Lobo lobo) {
         if (estaVivo() && lobo.estaCacando()) {
-            energia -= 5; // Ajuste o valor conforme necessário
+            energia -= 5;
             if (energia <= 0) {
                 morrer();
             }
