@@ -50,10 +50,17 @@ public class Floresta {
         System.out.println("|--------------------- Floresta ------------------------|");
         boolean coelhosVivos = false;
         boolean lobosVivos = false;
+        boolean arvoresVivas = false;
 
         for (Arvore arvore : arvores) {
-            arvore.envelhecer();
-            System.out.println("Arvore: " + arvore.getEstagio());
+            if (arvore.getEstagio().equals("morta")) {
+                continue;
+            }
+            arvore.envelhecer(); 
+            if (!arvore.getEstagio().equals("morta")) {
+                arvoresVivas = true; 
+                System.out.println("Arvore: " + arvore.getEstagio());
+            }
         }
 
         for (Coelho coelho : coelhos) {
@@ -100,7 +107,10 @@ public class Floresta {
             System.out.println("| Todos os coelhos e lobos estão mortos. A simulação será encerrada. |");
             System.exit(0);
         }
-
+        if (!arvoresVivas) {
+            System.out.println("| Todas as árvores estão mortas. A simulação será encerrada.          |");
+            System.exit(0);
+        }
         System.out.println("|-------------------------------------------------------|");
     }
 
