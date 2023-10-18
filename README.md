@@ -1,8 +1,8 @@
-# FlorestaConsole
+# Ecosistema de Floresta - FlorestaConsole
 Projeto - Programação Orientada a Objetos. 
 Uninassau - Maceio - AL
 
-Aluno: Gabriel de Oliveira Barros
+Aluno: Gabriel de Oliveira Barros - 01608601
 
 Formato do projeto 
 
