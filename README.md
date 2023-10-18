@@ -16,4 +16,4 @@ Interação - Lobo>Coelho: O Lobo caça o coelho, ser a energia do lobo chega a 
 
 Interação - Coelho>Lobo: O Coelho foger do lobo porem gasta energia para fugir ser chega a 0 a energia ele é comido pelo Lobo.
 
-Interação - Floresta> Caso os todos os animais entre em extinção, encerra a simulação.
+Interação - Floresta> Caso os todos os animais entre em extinção ou as arvores morram, encerra a simulação.
