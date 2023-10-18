@@ -25,16 +25,16 @@ public class Arvore {
         if (estagio.equals("muda") && ciclosDecorridos >= 1) {
             estagio = "jovem";
             ciclosDecorridos = 0;
-        } else if (estagio.equals("jovem") && ciclosDecorridos >= 2) {
+        } else if (estagio.equals("jovem") && ciclosDecorridos >= 3) {
             estagio = "adulta";
             ciclosDecorridos = 0;
-        } else if (estagio.equals("adulta") && ciclosDecorridos >= 5) {
+        } else if (estagio.equals("adulta") && ciclosDecorridos >= 10) {
             Random rand = new Random();
             if (rand.nextDouble() <= 0.8) {
                 System.out.println("Novas mudas estão nascendo!");
                 mudasNascidas++;
             }
-            if (ciclosDecorridos >= 6) {
+            if (ciclosDecorridos >= 12) {
                 estagio = "senil";
                 ciclosDecorridos = 0;
             }
@@ -51,6 +51,4 @@ public class Arvore {
         return estagio;
     }
 
-    public void add(Arvore arvore) {
-    }
 }

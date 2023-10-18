@@ -5,7 +5,7 @@ public class Coelho extends Animal {
 
     public Coelho() {
         super(10);
-        energia = 20;
+        energia = 60;
     }
 
     @Override

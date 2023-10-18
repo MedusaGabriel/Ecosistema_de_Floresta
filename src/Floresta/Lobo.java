@@ -11,7 +11,7 @@ public class Lobo extends Animal {
 
     public Lobo() {
         super(10);
-        fome = 30;
+        fome = 45;
         cacando = false;
         random = new Random();
         

@@ -57,11 +57,9 @@ public class Floresta {
         }
 
         for (Coelho coelho : coelhos) {
-            coelho.viver();
             if (coelho.estaVivo()) {
                 System.out.println("Coelho: " + coelho.getStatus());
                 coelhosVivos = true;
-
                 for (Lobo lobo : lobos) {
                     if (lobo.estaVivo()) {
                         coelho.fugir(lobo);
@@ -79,7 +77,7 @@ public class Floresta {
 
         for (Lobo lobo : lobos) {
             if (lobo.estaVivo()) {
-                lobo.viver();
+                lobo.getVida();
                 System.out.println("Lobo: " + lobo.getStatus());
                 lobosVivos = true;
 
